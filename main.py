@@ -25,10 +25,12 @@ class TypeSpeed():
         self.count_switch = False
 
         self.window.bind("<space>", self.text_changed)
+        self.entry_widget.bind('<FocusIn>', lambda x: self.entry_widget.delete(0, 'end'))
 
         self.window.mainloop()
 
-
+    def delete_text(self):
+        self.string_listener.delete(0, "end")
 
     def text_changed(self, *args):
         self.string_listener.set(" ")
