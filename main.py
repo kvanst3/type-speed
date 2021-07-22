@@ -44,7 +44,7 @@ class TypeSpeed():
         if self.count <= 0:
             print('Times up!')
         else:
-            self.window.after(1000, self.count_down, self.count - 1)
+            self.window.after(1000, self.count_down)
             self.count -= 1
 
 
