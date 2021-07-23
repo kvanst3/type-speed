@@ -14,7 +14,6 @@ class TypeSpeed():
 
         self.text_widget = tk.Text()
         self.text_widget.pack(expand=True, fill='both')
-        self.text_widget.config(state="disabled")
 
 
         self.string_listener = tk.StringVar()
@@ -30,7 +29,9 @@ class TypeSpeed():
         self.entry_widget.bind('<FocusIn>', lambda x: self.entry_widget.delete(0, 'end'))
 
         self.wordlist = ['date', 'the', 'old', 'hag', 'ok?']
+        self.text_widget.insert("insert", self.wordlist)
 
+        self.text_widget.config(state="disabled")
         self.window.mainloop()
 
     def delete_text(self):
