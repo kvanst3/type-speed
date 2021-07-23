@@ -14,6 +14,8 @@ class TypeSpeed():
 
         self.text_widget = tk.Text()
         self.text_widget.pack(expand=True, fill='both')
+        self.text_widget.config(state="disabled")
+
 
         self.string_listener = tk.StringVar()
         self.string_listener.set("Init Text")
