@@ -12,8 +12,8 @@ class TypeSpeed():
         self.time_label = tk.Label(text="Time Left: 60")
         self.time_label.pack(expand=True)
 
-        self.listbox = tk.Listbox()
-        self.listbox.pack(expand=True, fill='both')
+        self.text_widget = tk.Text()
+        self.text_widget.pack(expand=True, fill='both')
 
         self.string_listener = tk.StringVar()
         self.string_listener.set("Init Text")
@@ -26,6 +26,8 @@ class TypeSpeed():
 
         self.window.bind("<space>", self.text_changed)
         self.entry_widget.bind('<FocusIn>', lambda x: self.entry_widget.delete(0, 'end'))
+
+        self.wordlist = ['date', 'the', 'old', 'hag', 'ok?']
 
         self.window.mainloop()
 
