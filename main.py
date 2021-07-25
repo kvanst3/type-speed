@@ -9,7 +9,7 @@ class TypeSpeed():
         self.window.minsize(width=700, height=700)
         self.window.config(padx=10, pady=10)
 
-        self.time_label = tk.Label(text="Time Left: 60")
+        self.time_label = tk.Label(text="Time Left: 60   |   Score: 0")
         self.time_label.pack(expand=True)
 
         self.text_widget = tk.Text(self.window)
@@ -22,7 +22,7 @@ class TypeSpeed():
         self.entry_widget = tk.Entry(self.window, textvariable=self.string_listener)
         self.entry_widget.pack(expand=True, fill='x')
 
-        self.count = 60
+        self.time_count = 60
         self.count_switch = False
 
         self.entry_widget.bind('<FocusIn>', lambda x: self.entry_widget.delete(0, 'end'))
@@ -30,6 +30,7 @@ class TypeSpeed():
 
         self.wordlist = ['date', 'the', 'old', 'hag', 'ok']
         self.usr_words = []
+        self.word_count = 0
         self.text_widget.insert("insert", self.wordlist)
         self.text_widget.tag_config('date', background='green')
 
@@ -47,16 +48,16 @@ class TypeSpeed():
             self.count_switch = True
 
     def count_down(self, *args):
-        secs = self.count
+        secs = self.time_count
         if secs < 10:
             secs = f"0{secs}"
 
-        self.time_label.config(text=f"Time Left: {secs}")
-        if self.count <= 0:
+        self.time_label.config(text=f"Time Left: {secs}   |   Score: {self.word_count}")
+        if self.time_count <= 0:
             print('Times up!')
         else:
             self.window.after(1000, self.count_down)
-            self.count -= 1
+            self.time_count -= 1
 
     def check_word(self):
         word = self.string_listener.get().strip()
@@ -74,7 +75,7 @@ class TypeSpeed():
             if self.usr_words[i] == self.wordlist[i]:
                 self.text_widget.tag_add(self.wordlist[i], pos_start, pos_end)
                 self.text_widget.tag_config(self.wordlist[i], background='green')
-
+                self.word_count += 1
 
 
 ts = TypeSpeed()
