@@ -12,7 +12,7 @@ class TypeSpeed():
         self.time_label = tk.Label(text="Time Left: 60")
         self.time_label.pack(expand=True)
 
-        self.text_widget = tk.Text()
+        self.text_widget = tk.Text(self.window)
         self.text_widget.pack(expand=True, fill='both')
 
 
@@ -31,6 +31,7 @@ class TypeSpeed():
         self.wordlist = ['date', 'the', 'old', 'hag', 'ok?']
         self.usr_words = []
         self.text_widget.insert("insert", self.wordlist)
+        self.text_widget.tag_config('date', background='green')
 
         self.text_widget.config(state="disabled")
         self.window.mainloop()
@@ -59,7 +60,14 @@ class TypeSpeed():
 
     def check_word(self):
         word = self.string_listener.get()
-        print(word)
+        self.usr_words.append(word.strip())
+        for i in range(len(self.usr_words)):
+            self.text_widget.tag_add(self.wordlist[i], "1.0", "1.4")
+            if self.usr_words[i] == self.wordlist[i]:
+                self.text_widget.tag_config(self.wordlist[i], background='green')
+            else:
+                self.text_widget.tag_config(self.wordlist[i], background='red')
+
 
 
 ts = TypeSpeed()
