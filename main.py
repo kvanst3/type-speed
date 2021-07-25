@@ -28,7 +28,7 @@ class TypeSpeed():
         self.entry_widget.bind('<FocusIn>', lambda x: self.entry_widget.delete(0, 'end'))
         self.window.bind("<space>", self.text_changed)
 
-        self.wordlist = ['date', 'the', 'old', 'hag', 'ok?']
+        self.wordlist = ['date', 'the', 'old', 'hag', 'ok']
         self.usr_words = []
         self.text_widget.insert("insert", self.wordlist)
         self.text_widget.tag_config('date', background='green')
@@ -59,14 +59,21 @@ class TypeSpeed():
             self.count -= 1
 
     def check_word(self):
-        word = self.string_listener.get()
-        self.usr_words.append(word.strip())
-        for i in range(len(self.usr_words)):
-            self.text_widget.tag_add(self.wordlist[i], "1.0", "1.4")
+        word = self.string_listener.get().strip()
+        self.usr_words.append(word)
+
+        # word length use as offset to get end position for tag
+        offset = '+%dc' % len(word) # +5c (5 chars)
+
+        # search word from first char (1.0) to the end of text (END)
+        pos_start = self.text_widget.search(word, '1.0', 'end')
+        pos_end = pos_start + offset
+
+        if word in self.wordlist:
+            i = self.wordlist.index(word)
             if self.usr_words[i] == self.wordlist[i]:
+                self.text_widget.tag_add(self.wordlist[i], pos_start, pos_end)
                 self.text_widget.tag_config(self.wordlist[i], background='green')
-            else:
-                self.text_widget.tag_config(self.wordlist[i], background='red')
 
 
 
