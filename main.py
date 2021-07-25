@@ -25,10 +25,11 @@ class TypeSpeed():
         self.count = 60
         self.count_switch = False
 
-        self.window.bind("<space>", self.text_changed)
         self.entry_widget.bind('<FocusIn>', lambda x: self.entry_widget.delete(0, 'end'))
+        self.window.bind("<space>", self.text_changed)
 
         self.wordlist = ['date', 'the', 'old', 'hag', 'ok?']
+        self.usr_words = []
         self.text_widget.insert("insert", self.wordlist)
 
         self.text_widget.config(state="disabled")
@@ -38,8 +39,8 @@ class TypeSpeed():
         self.string_listener.delete(0, "end")
 
     def text_changed(self, *args):
+        self.check_word()
         self.string_listener.set(" ")
-        print("here")
         if self.count_switch is False:
             self.count_down()
             self.count_switch = True
@@ -55,6 +56,10 @@ class TypeSpeed():
         else:
             self.window.after(1000, self.count_down)
             self.count -= 1
+
+    def check_word(self):
+        word = self.string_listener.get()
+        print(word)
 
 
 ts = TypeSpeed()
